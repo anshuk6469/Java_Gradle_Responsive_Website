@@ -7,6 +7,7 @@ pipeline{
         stage('Building App') {
             steps {
                 withAnt(jdk: 'openjdk11') {
+                    sh 'chmod +x gradlew'
                     sh './gradlew build'
                 }
             }
@@ -14,6 +15,7 @@ pipeline{
 
         stage('Testing Stage') {
             steps {
+                sh 'chmod +x gradlew'
                 sh './gradlew test'
             }
         }
