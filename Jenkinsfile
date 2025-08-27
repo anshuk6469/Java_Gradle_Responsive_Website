@@ -1,7 +1,30 @@
 pipeline{
-    agent any 
+    agent any
+    tools {
+        jdk 'openjdk11'
+    } 
     stages{
-        stage("sonar quality check"){
+        stage('Building App') {
+            steps {
+                withAnt(jdk: 'openjdk11') {
+                    sh './gradlew build'
+                }
+            }
+        }
+
+        stage('Testing Stage') {
+            steps {
+                sh './gradlew test'
+            }
+        }
+
+        stage('Uploading Artifact to Nexus') {
+            steps {
+                step([$class: 'NexusArtifactUploader', artifacts: [[artifactId: 'Responsive_website', classifier: '', file: 'build/libs/Responsive_website-0.0.1-plain.war', type: 'war']], credentialsId: 'nexus', groupId: 'example.com', nexusUrl: 'localhost:8080', nexusVersion: 'nexus3', protocol: 'http', repository: 'gradletest', version: '0.1.1'])
+            }
+        }
+
+        /*stage("sonar quality check"){
             
             steps{
                 script{
@@ -36,7 +59,7 @@ pipeline{
                         }
                     } 
                 }
-            }
+            }*/
         
         /* stage('identifying mis-configurations in helm charts using datree plugin'){
             steps{
@@ -49,7 +72,7 @@ pipeline{
         }
     } */
 
-            stage("Pushing the helm charts to nexus"){
+           /* stage("Pushing the helm charts to nexus"){
             steps{
                 script{
                     withCredentials([string(credentialsId: 'docker_nexus_pass', variable: 'docker_nexus_passwd')]) {
@@ -77,10 +100,10 @@ pipeline{
             }
         }
 	    
-        }
-       post {
+        }*/
+       /*post {
 		always {
 			mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "${currentBuild.result} CI: Project name -> ${env.JOB_NAME}", to: "mailtomohanse@gmail.com";  
-		}
+		}*/
 	}
 }
