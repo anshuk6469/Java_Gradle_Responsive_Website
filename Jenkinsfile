@@ -8,7 +8,7 @@ pipeline{
             steps {
                 withAnt(jdk: 'openjdk11') {
                     sh 'chmod +x gradlew'
-                    sh './gradlew build'
+                    sh './gradlew clean build'
                 }
             }
         }
