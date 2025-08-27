@@ -22,7 +22,7 @@ pipeline{
 
         stage('Uploading Artifact to Nexus') {
             steps {
-                step([$class: 'NexusArtifactUploader', artifacts: [[artifactId: 'Responsive_website', classifier: '', file: 'build/libs/Responsive_website-0.0.1-plain.war', type: 'war']], credentialsId: 'nexus', groupId: 'example.com', nexusUrl: 'localhost:8080', nexusVersion: 'nexus3', protocol: 'http', repository: 'gradletest', version: '0.1.1'])
+                step([$class: 'NexusArtifactUploader', artifacts: [[artifactId: 'Responsive_website', classifier: '', file: 'build/libs/Responsive_website-0.0.1-plain.war', type: 'war']], credentialsId: 'nexus', groupId: 'example.com', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'gradletest', version: '0.1.1'])
             }
         }
 
