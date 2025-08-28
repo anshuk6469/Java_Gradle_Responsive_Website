@@ -26,12 +26,12 @@ pipeline{
             }
         }
 
-        /*stage("sonar quality check"){
+        stage("sonar quality check"){
             
             steps{
                 script{
                     //Gradle build 
-                    withSonarQubeEnv(credentialsId: 'sonar_token_for_jenkins') {
+                    withSonarQubeEnv(credentialsId: 'sonar') {
                             sh 'chmod +x gradlew'
                             sh './gradlew sonarqube'
                     }
@@ -47,7 +47,7 @@ pipeline{
             
         }
 
-     stage("docker build & docker push"){
+     /*stage("docker build & docker push"){
             steps{
                 script{
                     withCredentials([string(credentialsId: 'docker_nexus_pass', variable: 'docker_nexus_passwd')]) {
