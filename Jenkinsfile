@@ -53,10 +53,10 @@ pipeline{
                     withCredentials([string(credentialsId: 'docker_nexus', variable: 'docker_nexus_passwd')]) {
                                 
                                 sh ''' 
-                                docker build -t localhost:8081/lifeapp:$BUILD_ID .
+                                docker build -t localhost:8081/lifeapp/springapp:$BUILD_ID .
                                 docker login -u admin -p $docker_nexus_passwd localhost:8081
-                                docker push  localhost:8081/lifeapp:$BUILD_ID
-                                docker rmi localhost:8081/lifeapp:$BUILD_ID
+                                docker push  localhost:8081/lifeapp/springapp:$BUILD_ID
+                                docker rmi localhost:8081/lifeapp/springapp:$BUILD_ID
                             '''
                         }
                     } 
