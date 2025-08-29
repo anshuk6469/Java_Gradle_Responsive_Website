@@ -62,6 +62,17 @@ pipeline{
                     } 
                 }
             }
+
+            stage('K8S Deployment - DEV') {
+               steps {  
+                 withKubeConfig([credentialsId: 'kubeconfig']) {
+                 sh "sed -i 's#replace#localhost:8081/lifeapp/springapp:$BUILD_ID' deployment.yaml"
+                 sh "kubectl apply -f deployment.yaml"
+             }
+          }
+      }   
+
+
         
         /* stage('identifying mis-configurations in helm charts using datree plugin'){
             steps{
