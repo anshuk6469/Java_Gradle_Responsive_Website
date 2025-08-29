@@ -66,7 +66,7 @@ pipeline{
             stage('K8S Deployment - DEV') {
                steps {  
                  withKubeConfig([credentialsId: 'kubeconfig']) {
-                 sh "sed -i 's#replace#localhost:8081/lifeapp/springapp:${BUILD_ID}#g' deployment.yaml"
+                 sh "sed -i 's#replace#172.25.230.90:8081/lifeapp/springapp:${BUILD_ID}#g' deployment.yaml"
                  sh "kubectl apply -f deployment.yaml"
              }
           }
