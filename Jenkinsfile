@@ -50,7 +50,7 @@ pipeline{
      stage("docker build & docker push"){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'nexus', variable: 'docker_nexus_passwd')]) {
+                    withCredentials([string(credentialsId: 'docker_nexus', variable: 'docker_nexus_passwd')]) {
                                 
                                 sh ''' 
                                 docker build -t localhost:8081/lifeapp:$BUILD_ID .
