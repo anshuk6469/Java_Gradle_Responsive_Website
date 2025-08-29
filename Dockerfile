@@ -1,10 +1,10 @@
-FROM openjdk:11 as base 
+FROM quay.io/anshuk6469/openjdk:11 as base 
 WORKDIR /app
 COPY . . 
 RUN chmod +x gradlew
 RUN ./gradlew build 
 
-FROM tomcat:9
+FROM quay.io/anshuk6469/tomcat:9
 WORKDIR webapps
 COPY --from=base /app/build/libs/myapp.war .
 RUN rm -rf ROOT && mv myapp.war ROOT.war 

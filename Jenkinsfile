@@ -47,21 +47,21 @@ pipeline{
             
         }
 
-     /*stage("docker build & docker push"){
+     stage("docker build & docker push"){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'docker_nexus_pass', variable: 'docker_nexus_passwd')]) {
+                    withCredentials([string(credentialsId: 'nexus', variable: 'docker_nexus_passwd')]) {
                                 
                                 sh ''' 
-                                docker build -t 34.93.115.30:8083/springapp:$BUILD_ID .
-                                docker login -u admin -p sonarqube 34.93.115.30:8083 
-                                docker push  34.93.115.30:8083/springapp:$BUILD_ID
-                                docker rmi 34.93.115.30:8083/springapp:$BUILD_ID
+                                docker build -t localhost:8081/lifeapp:$BUILD_ID .
+                                docker login -u admin -p $docker_nexus_passwd localhost:8081
+                                docker push  localhost:8081/lifeapp:$BUILD_ID
+                                docker rmi localhost:8081/lifeapp:$BUILD_ID
                             '''
                         }
                     } 
                 }
-            }*/
+            }
         
         /* stage('identifying mis-configurations in helm charts using datree plugin'){
             steps{
